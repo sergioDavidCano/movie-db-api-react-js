@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import tmdbApi from '../../services/tmdbServices';
 import apiConfig from '../../api/apiConfig';
 
-const CastList = props => {
+export const CastList = (props) => {
 
     const { category } = useParams();
 
@@ -31,5 +31,3 @@ const CastList = props => {
         </div>
     );
 }
-
-export default CastList;

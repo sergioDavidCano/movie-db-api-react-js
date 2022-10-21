@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 import { SwiperSlide, Swiper } from 'swiper/react';
 
-import tmdbApi from '../../services/tmdbServices';
+import { MovieCard } from '../movie-card/MovieCard';
 
-import MovieCard from '../movie-card/MovieCard';
+import tmdbApi, { category } from '../../services/tmdbServices';
 
-export const MovieList = ({ category, type, id }) => {
+export const MovieList = (props) => {
 
     const [items, setItems] = useState([]);
 
@@ -17,17 +17,16 @@ export const MovieList = ({ category, type, id }) => {
             let response = null;
             const params = {};
 
-            if (type !== 'similar') {
-                switch (category) {
-                    case 'movie':
-                        response = await tmdbApi.getMoviesList(type, { params });
-                        console.log(response)
+            if (props.type !== 'similar') {
+                switch (props.category) {
+                    case category[props.category]:
+                        response = await tmdbApi.getMoviesList(props.type, { params });
                         break;
                     default:
-                        response = await tmdbApi.getTvList(type, { params });
+                        response = await tmdbApi.getTvList(props.type, { params });
                 }
             } else {
-                response = await tmdbApi.similar(category, id);
+                response = await tmdbApi.similar(props.category, props.id);
             }
             setItems(response.results);
         }
@@ -44,7 +43,7 @@ export const MovieList = ({ category, type, id }) => {
                 {
                     items.map((item, i) => (
                         <SwiperSlide key={i}>
-                            <MovieCard movie={item} categoryMovie={category} />
+                            <MovieCard movie={item} category={props.category} />
                         </SwiperSlide>
                     ))
                 }

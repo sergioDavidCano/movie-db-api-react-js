@@ -4,9 +4,9 @@ import { useParams } from 'react-router';
 
 import tmdbApi from '../../services/tmdbServices';
 
-const VideoList = props => {
+export const VideoList = (props) => {
 
-    const {category} = useParams();
+    const { category } = useParams();
 
     const [videos, setVideos] = useState([]);
 
@@ -22,14 +22,14 @@ const VideoList = props => {
         <>
             {
                 videos.map((item, i) => (
-                    <Video key={i} item={item}/>
+                    <Video key={i} item={item} />
                 ))
             }
         </>
     );
 }
 
-const Video = props => {
+const Video = (props) => {
 
     const item = props.item;
 
@@ -54,5 +54,3 @@ const Video = props => {
         </div>
     )
 }
-
-export default VideoList;

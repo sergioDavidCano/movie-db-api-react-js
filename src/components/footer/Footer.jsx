@@ -20,15 +20,16 @@ export const Footer = () => {
                 <div className="footer__content__menus">
                     <div className="footer__content__menu">
                         <Link to="/">Home</Link>
-                        <Link to="/">Contact us</Link>
-                        <Link to="/">Term of services</Link>
-                        <Link to="/">About us</Link>
+                        <Link to="/movie">Movies</Link>
+                        <Link to="/tv">Tv series</Link>
                     </div>
                     <div className="footer__content__menu">
-                        <Link to="/">Live</Link>
-                        <Link to="/">FAQ</Link>
-                        <Link to="/">Premium</Link>
-                        <Link to="/">Pravacy policy</Link>
+                        <Link to="https://www.themoviedb.org/" target="_blank"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                window.open("https://www.themoviedb.org/")
+                            }}
+                        >Api TMDB</Link>
                     </div>
                     <div className="footer__content__menu">
                         <Link to="/">You must watch</Link>

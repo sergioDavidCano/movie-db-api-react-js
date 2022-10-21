@@ -1,4 +1,6 @@
+import './hero-slide.scss';
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,10 +11,7 @@ import Modal, { ModalContent } from '../modal/Modal';
 import tmdbApi, { category, movieType } from '../../services/tmdbServices';
 import apiConfig from '../../api/apiConfig';
 
-import './hero-slide.scss';
-// import { useHistory } from 'react-router';
-
-const HeroSlide = () => {
+export const HeroSlide = () => {
 
     SwiperCore.use([Autoplay]);
 
@@ -20,11 +19,10 @@ const HeroSlide = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const params = {page: 1}
+            const params = { page: 1 }
             try {
-                const response = await tmdbApi.getMoviesList(movieType.popular, {params});
+                const response = await tmdbApi.getMoviesList(movieType.popular, { params });
                 setMovieItems(response.results.slice(1, 4));
-                console.log(response);
             } catch {
                 console.log('error');
             }
@@ -39,7 +37,7 @@ const HeroSlide = () => {
                 grabCursor={true}
                 spaceBetween={0}
                 slidesPerView={1}
-                // autoplay={{delay: 3000}}
+                autoplay={{ delay: 5000 }}
             >
                 {
                     movieItems.map((item, i) => (
@@ -52,7 +50,7 @@ const HeroSlide = () => {
                 }
             </Swiper>
             {
-                movieItems.map((item, i) => <TrailerModal key={i} item={item}/>)
+                movieItems.map((item, i) => <TrailerModal key={i} item={item} />)
             }
         </div>
     );
@@ -60,7 +58,7 @@ const HeroSlide = () => {
 
 const HeroSlideItem = props => {
 
-    // let hisrory = useHistory();
+    let navigate = useNavigate();
 
     const item = props.item;
 
@@ -84,16 +82,16 @@ const HeroSlideItem = props => {
     return (
         <div
             className={`hero-slide__item ${props.className}`}
-            style={{backgroundImage: `url(${background})`}}
+            style={{ backgroundImage: `url(${background})` }}
         >
             <div className="hero-slide__item__content container">
                 <div className="hero-slide__item__content__info">
                     <h2 className="title">{item.title}</h2>
                     <div className="overview">{item.overview}</div>
                     <div className="btns">
-                        {/* <Button onClick={() => hisrory.push('/movie/' + item.id)}>
+                        <Button onClick={() => navigate('/movie/' + item.id)}>
                             Watch now
-                        </Button> */}
+                        </Button>
                         <OutlineButton onClick={setModalActive}>
                             Watch trailer
                         </OutlineButton>
@@ -122,5 +120,3 @@ const TrailerModal = props => {
         </Modal>
     )
 }
-
-export default HeroSlide;

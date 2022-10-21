@@ -9,12 +9,11 @@ import Button from '../button/Button';
 import { category } from '../../services/tmdbServices';
 import apiConfig from '../../api/apiConfig';
 
-const MovieCard = ({ movie, categoryMovie }) => {
+export const MovieCard = (props) => {
 
-    const item = movie;
-    // console.log(item, category[categoryMovie])
+    const item = props.movie;
 
-    const link = '/' + category[categoryMovie] + '/' + item.id;
+    const link = '/' + category[props.category] + '/' + item.id;
 
     const bg = apiConfig.w500Image(item.poster_path || item.backdrop_path);
 
@@ -29,5 +28,3 @@ const MovieCard = ({ movie, categoryMovie }) => {
         </Link>
     );
 }
-
-export default MovieCard;
